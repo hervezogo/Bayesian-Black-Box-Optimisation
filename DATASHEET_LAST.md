@@ -1,10 +1,9 @@
-# Datasheet for the Black-Box Optimisation Challenge Dataset
+# Datasheet for the Black-Box Optimisation Dataset
 
-> **Project:** Bayesian Black-Box Optimisation Capstone  
+> **Project:** Bayesian Black-Box Optimisation Capstone
+> **Objective:** Maximise eight unknown objective functions under a restricted evaluation budget
 > **Programme:** Imperial College London Professional Certificate in Machine Learning and Artificial Intelligence  
-> **Documentation framework:** Adapted from *Datasheets for Datasets* (Gebru et al., 2021)  
-> **Document status:** Repository-ready snapshot based on the supplied cumulative HTML notebook exports  
-> **Primary objective:** Maximise eight unknown objective functions under a restricted evaluation budget
+> **Documentation framework:** Adapted from *Datasheets for Datasets* (Gebru et al., 2021)
 
 ---
 
