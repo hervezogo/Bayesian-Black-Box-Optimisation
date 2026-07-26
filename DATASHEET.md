@@ -27,9 +27,9 @@ This datasheet documents the dataset’s provenance, composition, preparation, b
 
 The dataset contains observations from eight independent black-box objective functions. Each observation consists of an input vector and the corresponding evaluator response:
 
-'''math
+```math
 (\mathbf{x}, y), \qquad \mathbf{x} \in [0,1]^d,\quad y \in \mathbb{R}
-'''
+```
 
 where:
 
