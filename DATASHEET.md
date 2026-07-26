@@ -1,126 +1,212 @@
-# Datasheet for the Black-Box Optimisation Challenge Dataset
+# Datasheet for the Black-Box Optimisation Dataset
 
 > **Project:** Bayesian Black-Box Optimisation Capstone  
+> **Objective:** Maximise eight unknown objective functions under a restricted evaluation budget  
 > **Programme:** Imperial College London Professional Certificate in Machine Learning and Artificial Intelligence  
-> **Documentation framework:** Adapted from *Datasheets for Datasets* (Gebru et al., 2021)  
-> **Document status:** Repository-ready snapshot based on the supplied cumulative HTML notebook exports  
-> **Primary objective:** Maximise eight unknown objective functions under a restricted evaluation budget
+> **Datasheet framework:** Adapted from *Datasheets for Datasets* (Gebru et al., 2021)
 
 ---
 
-## 1. Introduction
+## 1. Motivation
 
-### 1.1 Purpose
+- **Purpose:** This dataset supports the sequential optimisation of eight independent black-box objective functions, labelled **F1–F8**. Each function can be investigated only by submitting a valid input vector and observing the scalar response returned by the hidden evaluator.
 
-This datasheet documents the dataset created and extended during the Black-Box Optimisation (BBO) capstone challenge. The challenge contains eight independent objective functions, labelled **F1–F8**, whose analytical forms, gradients and internal mechanisms are not available to the participant. Each function can only be investigated by submitting a valid input vector and observing the scalar response returned by the hidden evaluator.
+- **Task supported:** The dataset supports Bayesian and related black-box optimisation workflows across functions ranging from two to eight dimensions. It enables analysis of surrogate modelling, acquisition strategies, exploration–exploitation trade-offs and optimisation performance under a restricted evaluation budget.
 
-The dataset is therefore not a conventional collection of passively observed examples. It is the **complete experimental record of a sequential decision process**. Every student-generated observation was selected after analysing the data available at that point in time. Later observations are consequently conditioned on earlier ones, and their order is part of the dataset's meaning.
+- **Creator and context:** The initial design was provided as part of a black-box optimisation challenge, while the underlying objective functions remained hidden. All subsequent query points were designed and selected by the project author using the analytical workflows, code and experiment notebooks contained in this repository.
 
-This distinction is important:
+- **Iterative Process Description:** Unlike a conventional supervised-learning dataset collected before modelling begins, this dataset was built sequentially. Each query was selected using the observations available at that stage, so later observations depend on earlier outcomes and collection order is relevant to reproducing and evaluating the optimisation process.
 
-- a conventional supervised-learning dataset aims to represent an underlying population;
-- this dataset aims to find high-performing regions of unknown functions as efficiently as possible;
-- concentration around promising regions is therefore expected and intentional;
-- the dataset records both what was observed and how the search evolved.
+This datasheet documents the dataset’s provenance, composition, preparation, biases, limitations and recommended uses. Modelling choices and optimisation diagnostics are documented separately in `MODEL_CARD.md` and the function notebooks.
 
-The purpose of this document is to explain the dataset's provenance, structure, statistical properties, quality controls, limitations and appropriate use. It does **not** attempt to reproduce the full modelling discussion. Gaussian Process specifications, acquisition-function choices, hyperparameter decisions and optimisation diagnostics should be documented separately in `MODEL_CARD.md` and the function notebooks.
+---
 
-### 1.2 Dataset identity
+## 2. Composition
 
-The dataset comprises eight related but independent tables. A row represents one evaluation:
+### 2.1 Unit of observation
 
-\[
+The dataset contains observations from eight independent black-box objective functions. Each observation consists of an input vector and the corresponding evaluator response:
+
+'''math
 (\mathbf{x}, y), \qquad \mathbf{x} \in [0,1]^d,\quad y \in \mathbb{R}
-\]
+'''
 
 where:
 
 - `x1, ..., xd` are continuous input coordinates;
 - `d` is the dimensionality of the relevant function;
-- `y` is the scalar response returned by the hidden function;
-- the optimisation direction is **maximisation** for all eight functions.
+- `y` is the scalar response returned by the hidden evaluator;
+- the optimisation objective is to maximise `y`.
 
-For functions with negative responses, a larger value still represents a better result. For example, `-0.2` is preferable to `-1.0`.
-
-### 1.3 Scope of this snapshot
-
-The statistics in this datasheet are calculated from the latest cumulative tables visible in the supplied HTML exports. The exports are not all frozen at the same notebook checkpoint:
-
-- F1 and F2 contain 12 appended query results and headings through Week 13;
-- F3, F4, F6, F7 and F8 contain 7 appended query results and headings through Week 8;
-- F5 contains 8 appended query results and headings through Week 10.
-
-The resulting snapshot contains **242 observations**: 175 course-provided initial observations and 67 unique appended observations. If the repository contains later responses not present in these exports, the summary table should be regenerated before the document is treated as the definitive final release.
-
-This explicit scope statement avoids a common documentation error: presenting statistics from mixed notebook versions as though they represented one synchronised final round.
-
----
-
-## 2. Dataset at a Glance
-
-### 2.1 Summary
+### 2.2 Dataset summary
 
 | Property | Value |
 |---|---|
-| Number of objective functions | 8 |
-| Function dimensionality | 2 to 8 input dimensions |
-| Optimisation direction | Maximise `y` for every function |
+| Objective functions | 8 |
+| Dimensionality | 2 to 8 input dimensions |
 | Input domain | Unit hypercube, `[0,1]^d` |
+| Optimisation direction | Maximise `y` |
 | Initial observations | 175 |
-| Appended observations visible in supplied exports | 67 |
-| Total observations in documented snapshot | 242 |
-| Missing values in cumulative snapshot | 0 |
-| Duplicate input vectors in cumulative snapshot | 0 |
-| Input-bound violations in cumulative snapshot | 0 |
-| Primary initial-data format | NumPy input and output arrays |
-| Primary experimental record | Per-function notebooks and cumulative tables |
-| Data sensitivity | Synthetic; no personal or confidential information |
+| Sequentially acquired observations | 104 |
+| Total observations | 279 |
+| Data format | NumPy arrays of floating-point inputs and outputs |
+| Experimental record | Per-function notebooks and cumulative tables |
+| Data sensitivity | Synthetic numerical data containing no personal information |
 
-### 2.2 Function-level snapshot
+### 2.3 Function-level composition
 
-The values below are descriptive statistics of the supplied cumulative tables. **Best observed** means the largest response recorded in the snapshot; it is not a claim that the global optimum has been proven.
+The table below summarises the final cumulative dataset. Observation counts and response ranges include both the initial and sequentially acquired observations.
 
-| Function | Dim. | Initial rows | Snapshot rows | Observed `y` range | Best observed input | Best observed `y` |
-|---|---:|---:|---:|---:|---|---:|
-| F1 | 2 | 10 | 22 | `[-0.003606063, 7.829289e-16]` | `[0.731010, 0.732975]` | `7.829289e-16` |
-| F2 | 2 | 10 | 22 | `[-0.065624, 0.632404]` | `[0.714286, 0.025000]` | `0.632404` |
-| F3 | 3 | 15 | 22 | `[-0.398926, -0.007682]` | `[0.434343, 0.525253, 0.444444]` | `-0.007682` |
-| F4 | 4 | 30 | 37 | `[-32.625660, 0.255738]` | `[0.418919, 0.418919, 0.378378, 0.445946]` | `0.255738` |
-| F5 | 4 | 20 | 28 | `[0.112940, 8662.482500]` | `[1.000000, 1.000000, 1.000000, 1.000000]` | `8662.482500` |
-| F6 | 5 | 20 | 27 | `[-2.571170, -0.219614]` | `[0.446501, 0.395649, 0.641075, 0.823617, 0.197425]` | `-0.219614` |
-| F7 | 6 | 30 | 37 | `[0.002701, 2.736811]` | `[0.001903, 0.183720, 0.418630, 0.234987, 0.305263, 0.623630]` | `2.736811` |
-| F8 | 8 | 40 | 47 | `[5.592193, 9.940738]` | `[0.114426, 0.134779, 0.113350, 0.383082, 0.851282, 0.492447, 0.168010, 0.619063]` | `9.940738` |
+| Function | Dim. | Initial | Sequential | Total | Cumulative observed `y` range | Observed characteristics |
+|---|---:|---:|---:|---:|---:|---|
+| F1 | 2 | 10 | 13 | 23 | `[-0.003606063, 8.190854e-16]` | Responses concentrated extremely close to zero |
+| F2 | 2 | 10 | 13 | 23 | `[-0.065624, 0.632404]` | Positive higher-value regions observed at multiple locations |
+| F3 | 3 | 15 | 13 | 28 | `[-0.398926, -0.00626387]` | Negative responses; values nearer zero are preferable |
+| F4 | 4 | 30 | 13 | 43 | `[-32.625660, 0.585185]` | Large negative tail with a comparatively small positive region |
+| F5 | 4 | 20 | 13 | 33 | `[0.112940, 8662.4825]` | Strong observed response growth towards a boundary corner |
+| F6 | 5 | 20 | 13 | 33 | `[-2.571170, -0.103406]` | Negative responses; larger values lie nearer zero |
+| F7 | 6 | 30 | 13 | 43 | `[0.002701, 2.854626]` | Strong observed responses near a boundary |
+| F8 | 8 | 40 | 13 | 53 | `[5.592193, 9.99309]` | Comparatively narrow observed response range |
 
-### 2.3 Pedagogical function framing
+The reported ranges describe only the responses contained in the dataset. They do not represent the theoretical ranges of the hidden functions or demonstrate that their global optima were identified.
 
-The notebooks attach illustrative scenarios to the functions. These scenarios help explain why expensive black-box optimisation is useful, but they should be treated as **educational framing**, not as evidence that the observations came from operational radiation, pharmaceutical, warehouse or industrial systems.
+### 2.4 Completeness and coverage
 
-| Function | Notebook framing | Data interpretation |
-|---|---|---|
-| F1 | Two-dimensional contamination or radiation-source localisation | Sparse 2D response with values concentrated extremely close to zero |
-| F2 | Noisy two-parameter ML log-likelihood | 2D objective with a clearer positive high-value region |
-| F3 | Three-compound side-effect optimisation | Negative transformed objective; values nearer zero are preferable |
-| F4 | Four-parameter warehouse or surrogate-model tuning | Large negative tail with a small positive region |
-| F5 | Four-input chemical-process yield | Strong scale growth towards a boundary corner |
-| F6 | Higher-dimensional tuning problem | Five-dimensional negative objective; maximise by moving towards zero |
-| F7 | Six-hyperparameter ML optimisation | Positive, high-dimensional objective with strong improvement near a boundary |
-| F8 | Generic eight-dimensional optimisation / ML tuning | Highest-dimensional function with responses in a comparatively narrow numerical band |
+The dataset is complete with respect to the initial observations and all submitted queries. It does not provide complete coverage of the underlying search spaces.
+
+Because each function was evaluated under a restricted query budget, large regions remain unexplored, particularly for the higher-dimensional functions F6–F8. Sequential observations were selected adaptively and are therefore not uniformly or independently sampled.
 
 ---
 
-## 3. Dataset Construction
+## 3. Collection Process
 
-### 3.1 Provenance and responsibility
+### 3.1 Provenance
 
-The observations have two distinct sources:
+The dataset combines two sources of observations:
 
-1. **Course-provided warm-start observations**  
-   Imperial College supplied initial input arrays and corresponding output arrays for each function. These observations established the starting design and were not selected by the student.
+- **Initial observations:** Input vectors and corresponding outputs provided at the start of the challenge. These formed the warm-start dataset for each function.
+- **Sequentially acquired observations:** Additional input vectors selected by the project author during the optimisation process. Each submitted vector was evaluated by the hidden evaluator, which returned one scalar response.
 
-2. **Student-generated sequential observations**  
-   Subsequent query points were selected using the accumulated dataset, surrogate-model outputs, acquisition functions, numerical diagnostics and function-specific reasoning. The hidden evaluator returned one scalar response for each submitted point.
+The underlying objective functions remained undisclosed throughout the collection process.
 
-This distinction should be preserved in any released version. At minimum, each row should carry a provenance field such as:
+### 3.2 Sequential acquisition
 
-```text
-source = "course_initial" | "student_query"
+Sequential observations were collected through an iterative weekly process. At each stage, the cumulative observations were analysed to identify the next query point. Selection was informed by exploratory analysis, surrogate-model outputs, acquisition strategies and function-specific diagnostics.
+
+The selected input vector was submitted to the hidden evaluator, and the returned response was validated and appended to the cumulative dataset for the relevant function.
+
+Because each query was selected using the information available at that stage, later observations depend on earlier results. Where available, the observation source and query round should therefore be retained.
+
+### 3.3 Sampling strategy
+
+The sampling strategy generally evolved from broad exploration towards more targeted refinement:
+
+- **Earlier rounds:** Space-filling exploration, interior points and boundary tests.
+- **Middle rounds:** A balance between exploration and exploitation, informed by observed response patterns and surrogate-model estimates.
+- **Later rounds:** Local refinement around regions associated with higher observed responses.
+
+This progression varied by function and does not imply that unexplored regions were inferior or that a global optimum was identified.
+
+---
+
+## 4. Data Preparation and Quality
+
+### 4.1 Preparation and validation
+
+Observations were retained as returned by the hidden evaluator. No preprocessing, transformation, outlier removal or manual labelling was applied. Before being appended, each observation was checked for valid dimensionality, input coordinates within `[0,1]`, duplicate query points and a scalar response.
+
+### 4.2 Data preservation
+
+All valid evaluator responses were retained, including negative values, near-zero values, poor exploratory results, boundary observations and repeated outputs returned at different input points. No observation was removed or modified based on its magnitude or optimisation performance.
+
+---
+
+## 5. Biases and Limitations
+
+### 5.1 Sampling biases
+
+- **Adaptive and policy-dependent sampling:** Query points were deliberately selected because they appeared informative or promising. The dataset therefore over-represents regions favoured by the optimisation strategy and under-represents unexplored regions.
+- **Temporal dependence:** Later observations were selected using earlier results. Collection order must be preserved when evaluating the sequential process.
+- **Uneven dimensional coverage:** The restricted query budget provides much sparser effective coverage for higher-dimensional functions than for lower-dimensional functions.
+- **Boundary concentration:** Several strong observations occur near boundaries or corners. This does not establish that the true optimum lies on a boundary.
+
+These characteristics are appropriate for sequential optimisation research but prevent the dataset from being treated as a representative sample of each complete input domain.
+
+### 5.2 Limitations
+
+- **Restricted sample size:** Each function contains only 23–53 observations, limiting statistical certainty.
+- **Unknown ground truth:** The analytical functions and true global optima are unavailable.
+- **Sparse high-dimensional coverage:** F6–F8 cannot be mapped comprehensively using the available observations.
+- **Illustrative scenarios:** Any physical, medical, industrial or operational interpretations are pedagogical only.
+- **No independent noise measure:** Each query records one scalar response, without repeated evaluations or a separate noise field.
+- **Best observed is not globally optimal:** A high incumbent or repeated local success does not prove that the global optimum has been found.
+
+---
+
+## 6. Recommended Use
+
+### 6.1 Intended uses
+
+The dataset is suitable for:
+
+- reproducing the documented sequential optimisation campaign;
+- teaching Bayesian and black-box optimisation;
+- fitting function-specific surrogate models;
+- comparing acquisition strategies under a restricted evaluation budget;
+- analysing exploration–exploitation behaviour and adaptive sampling.
+
+Evaluation should be performed within each function because their response scales are not directly comparable. Appropriate measures include the best-observed value by round and improvement over the initial incumbent.
+
+### 6.2 Uses to avoid
+
+The dataset should not be used:
+
+- as an unbiased or complete representation of any function’s input domain;
+- for causal inference;
+- to infer real physical, medical, industrial or operational relationships from illustrative scenarios;
+- to train a single model across all functions using unadjusted raw outputs;
+- as evidence that a global optimum has been identified;
+- for safety-critical or high-stakes deployment.
+
+### 6.3 Ethical considerations
+
+The dataset contains no personal data or protected attributes. The main risk is misrepresentation: illustrative scenarios should not be interpreted as evidence from real systems.
+
+Documentation should use the term **best observed point** rather than **optimum** unless a ground-truth optimum is provided.
+
+---
+
+## 7. Distribution, Reproducibility and Maintenance
+
+### 7.1 Distribution and licensing
+
+The dataset may be distributed with the project repository, subject to the terms governing course-provided material. A release should distinguish between:
+
+- project-authored code and documentation;
+- course-provided initial arrays;
+- evaluator responses obtained through submitted queries;
+- hidden objective definitions, which are not part of the dataset.
+
+This datasheet does not assert a licence on behalf of Imperial College. The repository licence should clearly state the terms applicable to project-authored and course-provided material.
+
+### 7.2 Reproducibility and maintenance
+
+A reproducible release should include the initial arrays, cumulative per-function tables, query order, source information and the code or notebooks used to regenerate the dataset summaries.
+
+Raw observations should remain unchanged. Any corrections or additions should be versioned and recorded in the project changelog.
+
+### 7.3 Related repository documents
+
+| Document | Responsibility |
+|---|---|
+| `README.md` | Project overview, installation, repository navigation and headline results |
+| `DATASHEET.md` | Dataset provenance, composition, quality, biases and permitted uses |
+| `MODEL_CARD.md` | Surrogate models, acquisition policies, assumptions, evaluation and model risks |
+| Function notebooks | Exploratory analysis, query decisions, plots and round-by-round evidence |
+| Source code | Data loading, modelling, acquisition and validation |
+
+---
+
+## 8. References
+
+Gebru, T., Morgenstern, J., Vecchione, B., Vaughan, J. W., Wallach, H., Daumé III, H., & Crawford, K. (2021). *Datasheets for Datasets*. **Communications of the ACM, 64**(12), 86–92.
