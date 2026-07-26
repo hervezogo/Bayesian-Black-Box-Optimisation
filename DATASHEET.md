@@ -1,4 +1,4 @@
-# Datasheet for the Black-Box Optimisation Dataset
+# Datasheet: Adaptive Bayesian Black-Box Optimisation Dataset
 
 > **Project:** Bayesian Black-Box Optimisation Capstone  
 > **Objective:** Maximise eight unknown objective functions under a restricted evaluation budget  
