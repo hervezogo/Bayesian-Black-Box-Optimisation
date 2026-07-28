@@ -2,10 +2,9 @@
 
 **Researcher-in-the-loop sequential optimisation across eight hidden objective functions**
 
-**Project:** Bayesian Black-Box Optimisation Capstone  
-**Programme:** Machine Learning and Artificial Intelligence, Imperial College London
-**Author:** Hervé Zogo  
-**Last updated:** 26 July 2026  
+**Project:** Bayesian Black-Box Optimisation Capstone <br>
+**Programme:** Machine Learning and Artificial Intelligence, Imperial College London <br>
+**Last updated:** 26 July 2026 <br>
 
 ---
 
@@ -18,7 +17,7 @@
 | Item | Project snapshot |
 |---|---|
 | Objective | Maximise eight unknown functions through sequential feedback |
-| Search spaces | Two to eight dimensions, with inputs in \([0,1]\) |
+| Search spaces | Two to eight dimensions, with inputs in \[0,1] |
 | Data snapshot | 175 initial observations and 104 recorded queries |
 | Method | Gaussian-process surrogates with UCB, EI and targeted PI |
 | Candidate search | Cartesian grids and global/local Sobol sequences |
@@ -47,7 +46,9 @@ For each hidden function:
 \arg\max_{\mathbf{x}\in[0,1]^d} f(\mathbf{x}),
 ```
 
-where \(d\) ranges from 2 to 8 and \(f(\mathbf{x})\) can be evaluated only through the course query process.
+where:
+- d ranges from 2 to 8 <br>
+- f(x) can be evaluated only through the course query process.
 
 The project combines exploratory analysis, Gaussian-process modelling, uncertainty-aware acquisitions, dimension-appropriate candidate generation and researcher judgement.
 
@@ -92,14 +93,14 @@ Sequential responses were appended inside the function-specific notebooks.
 
 | Function | Dimension | Initial | New queries | Total | Initial best | Best observed | Absolute change |
 |---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 2 | 10 | 13 | 23 | \(7.710875\times10^{-16}\) | \(7.829289\times10^{-16}\) | \(+1.18414\times10^{-17}\) |
+| 1 | 2 | 10 | 13 | 23 | 7.71088E-16 | 8.190853E-16 | 4.799789E-17 |
 | 2 | 2 | 10 | 13 | 23 | 0.611205 | 0.632404 | +0.021199 |
-| 3 | 3 | 15 | 13 | 28 | -0.034835 | -0.007682 | +0.027153 |
-| 4 | 4 | 30 | 13 | 43 | -4.025542 | 0.255738 | +4.281280 |
-| 5 | 4 | 20 | 13 | 33 | 1,088.859618 | 8,662.482500 | +7,573.622882 |
-| 6 | 5 | 20 | 13 | 33 | -0.714265 | -0.219614 | +0.494651 |
-| 7 | 6 | 30 | 13 | 43 | 1.364968 | 2.736811 | +1.371843 |
-| 8 | 8 | 40 | 13 | 53 | 9.598482 | 9.940738 | +0.342256 |
+| 3 | 3 | 15 | 13 | 28 | -0.034835 | -0.006264 | +0.028571 |
+| 4 | 4 | 30 | 13 | 43 | -4.025542 | 0.585186 | +4.610728 |
+| 5 | 4 | 20 | 13 | 33 | 1,088.859618 | 8,662.4825 | +7,573.6229 |
+| 6 | 5 | 20 | 13 | 33 | -0.714265 | -0.103406 | +0.61086 |
+| 7 | 6 | 30 | 13 | 43 | 1.364968 | 2.854626 | +1.489658 |
+| 8 | 8 | 40 | 13 | 53 | 9.598482 | 9.993086 | +0.394604 |
 | **Total** | — | **175** | **104** | **179** |
 
 Results are therefore cumulative records, not comparisons under equal query budgets.
