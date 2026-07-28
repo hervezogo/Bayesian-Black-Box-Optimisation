@@ -4,7 +4,6 @@
 
 **Project:** Bayesian Black-Box Optimisation Capstone <br>
 **Programme:** Machine Learning and Artificial Intelligence, Imperial College London <br>
-**Last updated:** 26 July 2026 <br>
 
 ---
 
