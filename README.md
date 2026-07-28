@@ -164,8 +164,6 @@ It cannot evaluate new points against the hidden functions, recreate external re
 ├── requirements.txt
 ├── notebooks/
 │   └── Function_1.ipynb ... Function_8.ipynb
-├── reports/
-│   └── Function_1.html ... Function_8.html
 └── Initial Data/
     └── function_1/ ... function_8/
 ```
