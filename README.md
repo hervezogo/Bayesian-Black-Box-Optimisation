@@ -7,7 +7,7 @@
 
 ---
 
-*An applied Bayesian optimisation project for learning how to explore and maximise unknown black-box functions. Across 13 sequential rounds, predictive modelling, uncertainty-aware decision-making, and practical machine-learning heuristics were used to learn from each result and determine where to search next..*
+*An applied Bayesian optimisation project for learning how to explore and maximise unknown black-box functions. Across 13 sequential rounds, predictive modelling, uncertainty-aware decision-making, and practical machine-learning heuristics were used to learn from each result and determine where to search next.*
 
 ---
 
@@ -16,7 +16,7 @@
 | Item | Project snapshot |
 |---|---|
 | Objective | Maximise eight unknown functions through sequential feedback |
-| Search spaces | Two to eight dimensions, with inputs in \[0,1] |
+| Search spaces | Two to eight dimensions, with inputs in \[0,1]^d |
 | Data snapshot | 175 initial observations and 104 recorded queries |
 | Method | Gaussian-process surrogates with UCB, EI and targeted PI |
 | Candidate search | Cartesian grids and global/local Sobol sequences |
@@ -47,7 +47,7 @@ For each hidden function:
 
 where:
 - d ranges from 2 to 8 <br>
-- f(x) can be evaluated only through the course query process.
+- $f(\mathbf{x})$ can be evaluated only through the course query process.
 
 The project combines exploratory analysis, Gaussian-process modelling, uncertainty-aware acquisitions, dimension-appropriate candidate generation and researcher judgement.
 
@@ -79,7 +79,7 @@ The process moves from exploratory analysis and global modelling to acquisition 
 ---
 
 
-## 5. Experimental data and Results
+## 5. Experimental data and results
 
 No external dataset is used. Initial observations are stored under:
 
@@ -113,7 +113,7 @@ The datasets are small, repeated evaluations are unavailable, noise cannot be es
 - **Functions 1–2:** narrow local or boundary regions required targeted refinement.
 - **Functions 3–4:** later exploitation improved materially on the initial incumbents.
 - **Function 5:** the exact corner \([1,1,1,1]\) materially outperformed alternatives.
-- **Functions 6–8:** Sobol candidates and local Matérn-GP refinement improved higher-dimensional search.
+- **Functions 6–8:** Sobol candidates and local Matérn-GP refinement were used during the later higher-dimensional search, which produced higher best-observed values.
 - **Function 7:** repeated refinement more than doubled the initial incumbent.
 
 ---
