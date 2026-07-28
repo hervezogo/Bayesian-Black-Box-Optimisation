@@ -3,7 +3,7 @@
 > **Project:** Bayesian Black-Box Optimisation Capstone  <br>
 > **Objective:** Maximise eight unknown objective functions under a restricted evaluation budget  <br>
 > **Programme:** Professional Certificate in Machine Learning and Artificial Intelligence, Imperial College London <br>
-> **Datasheet framework:** Adapted from *Model Cards for Model Reporting* (Mitchell et al., 2019) <br>
+> **Model-card framework:** Adapted from *Model Cards for Model Reporting* (Mitchell et al., 2019) <br>
 
 ---
 
@@ -11,10 +11,10 @@
 
 This model card documents the optimisation system used to select sequential query points for eight unknown black-box functions. It is not a single static predictive model. The system combines:
 
-- **For Global Bayesian search:** a separate Gaussian Process (GP) surrogate for each function;
-- **For acquisition function:** Upper Confidence Bound (UCB), Expected Improvement (EI), and Probability of Improvement (PI);
-- **For candidate selection:** meshed grid, Sobol, and trust-region candidate generation;
-- **Targetted human intervention:** human review and occasional manual probes.
+- **For surrogate modelling:** a separate Gaussian Process (GP) surrogate for each function;
+- **For acquisition functions:** Upper Confidence Bound (UCB), Expected Improvement (EI), and Probability of Improvement (PI);
+- **For candidate selection:** Cartesian grid, Sobol, and trust-region candidate generation;
+- **Targetted researcher intervention:** researcher review and occasional manual probes.
 
 At each round, the GP is refitted using all observations available for the relevant function. Candidate inputs are scored using an acquisition function, reviewed against the search history, and one point is submitted to the hidden evaluator.
 
@@ -98,7 +98,7 @@ typically with multiple optimiser restarts, output normalisation, and fixed rand
 
 The Matérn kernel was introduced when the RBF/grid workflow became too rigid, particularly for higher-dimensional or locally volatile functions. F1 used a shorter-scale Matérn-3/2 model for a very narrow near-zero signal.
 
-### 2.2 Predictive uncertainty
+### 4.2 Predictive uncertainty
 
 For each candidate `x`, the GP estimates:
 
