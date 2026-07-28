@@ -1,9 +1,9 @@
 # Model Card: Adaptive Bayesian Black-Box Optimisation
 
-> **Project:** Bayesian Black-Box Optimisation Capstone  
-> **Objective:** Maximise eight unknown objective functions under a restricted evaluation budget  
-> **Programme:** Professional Certificate in Machine Learning and Artificial Intelligence, Imperial College London
-> **Datasheet framework:** Adapted from *Model Cards for Model Reporting* (Mitchell et al., 2019)
+> **Project:** Bayesian Black-Box Optimisation Capstone  <br>
+> **Objective:** Maximise eight unknown objective functions under a restricted evaluation budget  <br>
+> **Programme:** Professional Certificate in Machine Learning and Artificial Intelligence, Imperial College London <br>
+> **Datasheet framework:** Adapted from *Model Cards for Model Reporting* (Mitchell et al., 2019) <br>
 
 ---
 
