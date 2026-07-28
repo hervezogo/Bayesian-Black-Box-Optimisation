@@ -92,7 +92,7 @@ Sequential responses were appended inside the function-specific notebooks.
 
 | Function | Dimension | Initial | New queries | Total | Initial best | Best observed | Absolute change |
 |---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 2 | 10 | 13 | 23 | 7.71088E-16 | 8.190853E-16 | 4.799789E-17 |
+| 1 | 2 | 10 | 13 | 23 | 7.71088E-16 | 8.190854E-16 | 4.799789E-17 |
 | 2 | 2 | 10 | 13 | 23 | 0.611205 | 0.632404 | +0.021199 |
 | 3 | 3 | 15 | 13 | 28 | -0.034835 | -0.006264 | +0.028571 |
 | 4 | 4 | 30 | 13 | 43 | -4.025542 | 0.585186 | +4.610728 |
