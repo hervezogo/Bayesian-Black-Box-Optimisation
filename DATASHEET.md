@@ -66,7 +66,7 @@ The table below summarises the final cumulative dataset. Observation counts and 
 | F5 | 4 | 20 | 13 | 33 | `[0.112940, 8662.4825]` | Strong observed response growth towards a boundary corner |
 | F6 | 5 | 20 | 13 | 33 | `[-2.571170, -0.103406]` | Negative responses; larger values lie nearer zero |
 | F7 | 6 | 30 | 13 | 43 | `[0.002701, 2.854626]` | Strong observed responses near a boundary |
-| F8 | 8 | 40 | 13 | 53 | `[5.592193, 9.99309]` | Comparatively narrow observed response range |
+| F8 | 8 | 40 | 13 | 53 | `[5.592193, 9.993086]` | Comparatively narrow observed response range |
 
 The reported ranges describe only the responses contained in the dataset. They do not represent the theoretical ranges of the hidden functions or demonstrate that their global optima were identified.
 
