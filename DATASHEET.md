@@ -49,7 +49,8 @@ where:
 | Initial observations | 175 |
 | Sequentially acquired observations | 104 |
 | Total observations | 279 |
-| Data format | NumPy arrays of floating-point inputs and outputs |
+| Initial Data format | NumPy .npy input and output arrays |
+| Sequential record | Function specific notebook tables |
 | Experimental record | Per-function notebooks and cumulative tables |
 | Data sensitivity | Synthetic numerical data containing no personal information |
 
@@ -149,10 +150,10 @@ These characteristics are appropriate for sequential optimisation research but p
 
 The dataset is suitable for:
 
-- reproducing the documented sequential optimisation campaign;
+- reproducing and auditing the documented optimisation campaign using the recorded evaluator responses;
 - teaching Bayesian and black-box optimisation;
 - fitting function-specific surrogate models;
-- comparing acquisition strategies under a restricted evaluation budget;
+- studying the acquisition strategies under a restricted evaluation budget;
 - analysing exploration–exploitation behaviour and adaptive sampling.
 
 Evaluation should be performed within each function because their response scales are not directly comparable. Appropriate measures include the best-observed value by round and improvement over the initial incumbent.
