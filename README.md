@@ -201,10 +201,10 @@ It does not establish that global maxima were found, that GP uncertainty is cali
 ## 10. References
 
 1. Rasmussen, C. E., & Williams, C. K. I. (2006). *Gaussian Processes for Machine Learning*.
-2. Jones, D. R., Schonlau, M., & Welch, W. J. (1998). Efficient Global Optimization of Expensive Black-Box Functions.
-3. Srinivas, N., Krause, A., Kakade, S. M., & Seeger, M. (2010). Gaussian Process Optimization in the Bandit Setting.
-4. Brochu, E., Cora, V. M., & de Freitas, N. (2010). A Tutorial on Bayesian Optimization of Expensive Cost Functions.
-5. Sobol, I. M. (1967). On the Distribution of Points in a Cube and the Approximate Evaluation of Integrals.
+2. Jones, D. R., Schonlau, M., & Welch, W. J. (1998). *Efficient Global Optimization of Expensive Black-Box Functions.*
+3. Srinivas, N., Krause, A., Kakade, S. M., & Seeger, M. (2010). *Gaussian Process Optimization in the Bandit Setting.*
+4. Brochu, E., Cora, V. M., & de Freitas, N. (2010). *A Tutorial on Bayesian Optimization of Expensive Cost Functions.*
+5. Sobol, I. M. (1967). *On the Distribution of Points in a Cube and the Approximate Evaluation of Integrals.*
 
 ---
 
