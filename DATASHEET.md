@@ -62,7 +62,7 @@ The table below summarises the final cumulative dataset. Observation counts and 
 | F1 | 2 | 10 | 13 | 23 | `[-0.003606063, 8.190854e-16]` | Responses concentrated extremely close to zero |
 | F2 | 2 | 10 | 13 | 23 | `[-0.065624, 0.632404]` | Positive higher-value regions observed at multiple locations |
 | F3 | 3 | 15 | 13 | 28 | `[-0.398926, -0.00626387]` | Negative responses; values nearer zero are preferable |
-| F4 | 4 | 30 | 13 | 43 | `[-32.625660, 0.585185]` | Large negative tail with a comparatively small positive region |
+| F4 | 4 | 30 | 13 | 43 | `[-32.625660, 0.585186]` | Large negative tail with a comparatively small positive region |
 | F5 | 4 | 20 | 13 | 33 | `[0.112940, 8662.4825]` | Strong observed response growth towards a boundary corner |
 | F6 | 5 | 20 | 13 | 33 | `[-2.571170, -0.103406]` | Negative responses; larger values lie nearer zero |
 | F7 | 6 | 30 | 13 | 43 | `[0.002701, 2.854626]` | Strong observed responses near a boundary |
