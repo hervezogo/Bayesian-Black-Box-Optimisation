@@ -247,7 +247,7 @@ Final observation counts, response ranges, provenance, and coverage are maintain
 
 - The strategy improved the best observed value on all eight functions.
 - F4–F7 show the clearest practical gains.
-- F5 provided strong empirical evidence of an upper-corner optimum within the tested resolution.
+- F5 provided strong empirical evidence that the upper corner was the best-observed region within the tested resolution.
 - F8 improved from an already strong starting point and then showed diminishing returns.
 - F1 remained effectively flat at ordinary numerical scales, so percentage improvement would be misleading.
 - These results are **best observed values**, not proof of global optimality.
