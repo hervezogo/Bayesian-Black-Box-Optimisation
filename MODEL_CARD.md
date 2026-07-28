@@ -2,7 +2,7 @@
 
 > **Project:** Bayesian Black-Box Optimisation Capstone  
 > **Objective:** Maximise eight unknown objective functions under a restricted evaluation budget  
-> **Programme:** Imperial College London Professional Certificate in Machine Learning and Artificial Intelligence  
+> **Programme:** Professional Certificate in Machine Learning and Artificial Intelligence, Imperial College London
 > **Datasheet framework:** Adapted from *Model Cards for Model Reporting* (Mitchell et al., 2019)
 
 ---
@@ -33,8 +33,8 @@ The final dataset and its provenance, composition, collection process, biases, a
 | **Objective** | Maximise each unknown function over `[0,1]^d` |
 | **Dimensionality** | 2 to 8 continuous inputs |
 | **Acquisition functions** | UCB, EI, PI |
-| **Input** | One recommended query vector per function and round |
-| **Output** | One float scalar |
+| **Evaluator Input** | One recommended query vector per function and round |
+| **Evaluator Output** | One float scalar |
 | **Training approach** | Refit independently on each function’s cumulative observations |
 | **Human involvement** | Candidate review and occasional manual override |
 | **Deployment status** | Educational capstone; not validated for production or high-stakes use |
@@ -237,7 +237,7 @@ Final observation counts, response ranges, provenance, and coverage are maintain
 | F1 | `7.710875e-16` | `8.190854e-16` | `4.79979e-17` |
 | F2 | `0.611205` | `0.632404` | `0.021199` |
 | F3 | `-0.034835` | `-0.00626387` | `0.02857113` |
-| F4 | `-4.025542` | `0.585185` | `4.610727` |
+| F4 | `-4.025542` | `0.585186` | `4.610727` |
 | F5 | `1088.859618` | `8662.4825` | `7573.622882` |
 | F6 | `-0.714265` | `-0.103406` | `0.610859` |
 | F7 | `1.364968` | `2.854626` | `1.489658` |
