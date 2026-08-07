@@ -1,0 +1,19 @@
+# Bayesian Black-Box Optimisation
+# Exact packages used for Reproducibility
+# Executed with Python 3.13.9
+
+# Core scientific computing
+numpy==2.3.5
+pandas==2.3.3
+scipy==1.16.3
+
+# Machine learning for Surrogate Modeling 
+scikit-learn==1.8.0
+
+# Visualisation
+matplotlib==3.10.8
+seaborn==0.13.2
+
+# Jupyter Environments
+ipykernel==6.31.0
+notebook==7.4.5
