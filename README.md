@@ -132,7 +132,7 @@ The datasets are small, repeated evaluations are unavailable, noise cannot be es
 
 ---
 
-## 8. Reproducibility [TO REVIEW LATER]
+## 8. Reproducibility
 
 ```bash
 git clone <repository-url>
@@ -157,15 +157,44 @@ It cannot evaluate new points against the hidden functions, recreate external re
 ## 9. Repository structure
 
 ```text
-.
-├── README.md
-├── DATASHEET.md
-├── MODEL_CARD.md
-├── requirements.txt
+bayesian-black-box-optimisation/
+│
+├── data/
+│   ├── initial/
+│   │    ├── function_1/
+│   │    ├── .../
+│   │    └── function_8/
+│   │
+│   └── final/ 
+│       ├── results.csv (R)
+│       └── queries.csv (R)
+│
+├── figures/
+│   └── optimisation_progress.png
+│
+├── analysis/
+│   └── results
+│
 ├── notebooks/
-│   └── Function_1.ipynb ... Function_8.ipynb
-└── Initial Data/
-    └── function_1/ ... function_8/
+│   ├── Function_1.ipynb
+│   ├── ... 
+│   └── Function_8.ipynb
+│
+├── src/
+│   ├── __init__.py
+│   ├── config.py
+│	├── data.py
+│   ├── surrogate.py
+│   ├── acquisition.py
+│   ├── search.py
+│   ├── plotting.py
+│   └── benchmarks.py
+│
+├── .gitignore
+├── README.md
+├── MODEL_CARD.md
+├── DATASHEET.md 
+└── requirements.txt 
 ```
 
 Version counters and export suffixes should be removed from public filenames.
