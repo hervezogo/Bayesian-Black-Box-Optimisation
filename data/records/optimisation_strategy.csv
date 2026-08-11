@@ -1,0 +1,105 @@
+﻿Function,Week,Nb Initial Observations,Input,Candidates Points,Resolution,Nb Candidates,Surrogate,Kernel,Acquisition,Params,Hyperparams
+F_1,1,10,Initial,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=1.5,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_1,2,10,Previous,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=1.5,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_1,3,10,Previous,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=2.0,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_1,4,10,Previous,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=2.25,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_1,5,10,Previous,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_initial_length_scale=0.2, RBF_length_scale_bounds=(0.05, 1.0)"
+F_1,6,10,Previous,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_initial_length_scale=0.2, RBF_length_scale_bounds=(0.05, 1.0)"
+F_1,7,10,Previous,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_initial_length_scale=0.2, RBF_length_scale_bounds=(0.05, 1.0)"
+F_1,8,10,Previous,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_initial_length_scale=0.2, RBF_length_scale_bounds=(0.05, 1.0)"
+F_1,9,10,Previous,Random Search - Local,-,"50,000",GP,Matérn 3/2,PI,ξ=0; radius=0.005,"Matern_initial_length_scale=[0.0025, 0.0025], Matern_length_scale_bounds=(1e-4, 0.05)"
+F_1,10,10,Previous,Random Search - Local,-,"50,000",GP,Matérn 3/2,PI,ξ=0; radius=0.01,"Matern_initial_length_scale=[0.0025, 0.0025], Matern_length_scale_bounds=(1e-4, 0.05)"
+F_1,11,10,Previous,Random Search - Local,-,"50,000",GP,Matérn 3/2,PI,ξ=0; radius=0.001,"Matern_initial_length_scale=[0.0025, 0.0025], Matern_length_scale_bounds=(1e-4, 0.05)"
+F_1,12,10,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_1,13,10,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_2,1,10,Initial,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=1.5,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_2,2,10,Previous,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=1.5,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_2,3,10,Previous,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=1.5,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_2,4,10,Previous,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=2.25,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_2,5,10,Previous,Cartesian Grid - Constrained,500²,"250,000",GP,RBF,UCB,κ=0.25,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_2,6,10,Override,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_2,7,10,Previous,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_2,8,10,Previous,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
+F_2,9,10,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_2,10,10,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_2,11,10,Previous,Cartesian Grid - Local,1000²,"1,000,000",GP,Matérn 5/2,PI,ξ=0; min_distance=0.005,"Matern_initial_length_scale=[0.02, 0.02]"
+F_2,12,10,Previous,Cartesian Grid - Local,1000²,"1,000,000",GP,Matérn 5/2,PI,ξ=0; min_distance=0.005,"Matern_initial_length_scale=[0.02, 0.02]"
+F_2,13,10,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_3,1,15,Initial,Cartesian Grid - Global,50³,"125,000",GP,RBF,UCB,κ=1.5,RBF_initial_length_scale=0.2
+F_3,2,15,Previous,Cartesian Grid - Global,50³,"125,000",GP,RBF,UCB,κ=1.5,RBF_initial_length_scale=0.2
+F_3,3,15,Previous,Cartesian Grid - Global,50³,"125,000",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_3,4,15,Previous,Cartesian Grid - Global,50³,"125,000",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_3,5,15,Previous,Cartesian Grid - Global,100³,"1,000,000",GP,RBF,UCB,κ=2/√5,RBF_initial_length_scale=0.2
+F_3,6,15,Previous,Cartesian Grid - Global,100³,"1,000,000",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_3,7,15,Previous,Cartesian Grid - Global,100³,"1,000,000",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_3,8,15,Previous,Cartesian Grid - Global,100³,"1,000,000",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_3,9,15,Previous,Random Search - Local,-,"100,000",GP,Matérn 5/2,EI,ξ=0.001; radius=[0.05]*3,"Matern_initial_length_scale=[0.08]*3, Matern_length_scale_bounds=(1e-3, 0.5)"
+F_3,10,15,Previous,Random Search - Local,-,"100,000",GP,Matérn 5/2,EI,ξ=0.001; radius=[0.05]*3,"Matern_initial_length_scale=[0.08]*3, Matern_length_scale_bounds=(1e-3, 0.5)"
+F_3,11,15,Previous,Random Search - Local,-,"100,000",GP,Matérn 5/2,EI,ξ=0.001,"Matern_initial_length_scale=[0.08]*3, Matern_length_scale_bounds=(1e-3, 0.5)"
+F_3,12,15,Previous,Random Search - Local,-,"100,000",GP,Matérn 5/2,EI,ξ=0,"Matern_initial_length_scale=[0.08]*3, Matern_length_scale_bounds=(1e-3, 0.5)"
+F_3,13,15,Previous,Random Search - Local,-,"100,000",GP,Matérn 5/2,EI,ξ=0.001,"Matern_initial_length_scale=[0.08]*3, Matern_length_scale_bounds=(1e-3, 0.5)"
+F_4,1,30,Initial,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,UCB,κ=1.5,RBF_initial_length_scale=0.2
+F_4,2,30,Previous,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,UCB,κ=1.5,RBF_initial_length_scale=0.2
+F_4,3,30,Previous,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_4,4,30,Previous,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_4,5,30,Previous,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_4,6,30,Previous,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_4,7,30,Previous,Cartesian Grid - Global,75⁴,"31,640,625",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_4,8,30,Previous,Cartesian Grid - Global,75⁴,"31,640,625",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_4,9,30,Previous,Cartesian Grid - Global,75⁴,"31,640,625",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_4,10,30,Previous,Cartesian Grid - Global,75⁴,"31,640,625",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_4,11,30,Previous,Cartesian Grid - Global,75⁴,"31,640,625",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_4,12,30,Previous,Cartesian Grid - Global,75⁴,"31,640,625",GP,RBF,EI,-,RBF_initial_length_scale=0.2
+F_4,13,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,radius=0.12; min_distance=0.05,-
+F_5,1,20,Initial,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,EI,ξ=0.01,RBF_initial_length_scale=0.2
+F_5,2,20,Previous,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,EI,ξ=0.01,RBF_initial_length_scale=0.2
+F_5,3,20,Previous,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,EI,ξ=0.01,RBF_initial_length_scale=0.2
+F_5,4,20,Previous,Cartesian Grid - Global,50⁴,"6,250,000",GP,RBF,EI,ξ=0.01,RBF_initial_length_scale=0.2
+F_5,5,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_5,6,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_5,7,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_5,8,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_5,9,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_5,10,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_5,11,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_5,12,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_5,13,20,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
+F_6,1,20,Initial,Cartesian Grid - Global,25⁵,"9,765,625",GP,RBF,UCB,κ=1.5,RBF_initial_length_scale=0.2
+F_6,2,20,Previous,Cartesian Grid - Global,25⁵,"9,765,625",GP,RBF,UCB,κ=1.5,RBF_initial_length_scale=0.2
+F_6,3,20,Previous,Cartesian Grid - Global,25⁵,"9,765,625",GP,RBF,UCB,κ=2.57,RBF_initial_length_scale=0.2
+F_6,4,20,Previous,Sobol - Global,2¹⁴,"16,384",GP,Matérn 5/2,UCB,-,Matern_initial_length_scale=[0.20]*5
+F_6,5,20,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,UCB,κ=2.5/√5,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_6,6,20,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_6,7,20,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_6,8,20,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_6,9,20,Override,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,-,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_6,10,20,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_6,11,20,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_6,12,20,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_6,13,20,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*5, Matern_length_scale_bounds=(0.01, 3.0)"
+F_7,1,30,Initial,Cartesian Grid - Global,15⁶,"11,390,625",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_7,2,30,Previous,Cartesian Grid - Global,15⁶,"11,390,625",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_7,3,30,Previous,Cartesian Grid - Global,15⁶,"11,390,625",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_7,4,30,Previous,Sobol - Global,2¹⁴,"16,384",GP,Matérn 5/2,UCB,-,Matern_initial_length_scale=[0.20]*6
+F_7,5,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,UCB,-,Matern_initial_length_scale=[0.20]*6
+F_7,6,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,Matern_initial_length_scale=[0.20]*6
+F_7,7,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005; radius=[0.12]*6,Matern_initial_length_scale=[0.20]*6
+F_7,8,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005; radius=[0.12]*6,Matern_initial_length_scale=[0.20]*6
+F_7,9,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005; radius=[0.12]*6,Matern_initial_length_scale=[0.20]*6
+F_7,10,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005; radius=[0.12]*6,Matern_initial_length_scale=[0.20]*6
+F_7,11,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,Matern_initial_length_scale=[0.20]*6
+F_7,12,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,Matern_initial_length_scale=[0.20]*6
+F_7,13,30,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0,Matern_initial_length_scale=[0.20]*6
+F_8,1,40,Initial,Cartesian Grid - Global,5⁸,"390,625",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_8,2,40,Previous,Cartesian Grid - Global,5⁸,"390,625",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_8,3,40,Previous,Cartesian Grid - Global,5⁸,"390,625",GP,RBF,UCB,-,RBF_initial_length_scale=0.2
+F_8,4,40,Previous,Sobol - Global,2¹⁴,"16,384",GP,Matérn 5/2,UCB,-,Matern_initial_length_scale=[0.20]*8
+F_8,5,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,UCB,κ=2.5/√5,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
+F_8,6,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
+F_8,7,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
+F_8,8,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
+F_8,9,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
+F_8,10,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
+F_8,11,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
+F_8,12,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0.005,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
+F_8,13,40,Previous,Sobol - Local,2¹⁴,"16,384",GP,Matérn 5/2,EI,ξ=0,"Matern_initial_length_scale=[0.20]*8, Matern_length_scale_bounds=(0.01, 3.0)"
