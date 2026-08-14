@@ -3,6 +3,7 @@
 import numpy as np
 from scipy.spatial import cKDTree
 from scipy.stats import qmc
+from sklearn.gaussian_process import GaussianProcessRegressor
 
 from .config import RANDOM_SEED
 
@@ -48,12 +49,18 @@ def cartesian_grid(
 def search_region(
     centre: np.ndarray,
     radius: float | np.ndarray,
+    upper_radius: float | np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     
-    """Define a bounded search region around a centre point."""
-
+    """Define a bounded search region around a centre point, 
+    or optionality asymmetric searhc region"""
+    
+    if upper_radius is None:
+        upper_radius = radius
+    
     lower = np.clip(centre - radius, 0.0, 1.0)
     upper = np.clip(centre + radius, 0.0, 1.0)
+    
     return lower, upper
 
 
@@ -128,20 +135,11 @@ def incumbent(
     return inputs[index], outputs[index]
 
 
-def select_candidate(
-    candidates: np.ndarray,
-    scores: np.ndarray,
-) -> np.ndarray:
-    
-    """Return the candidate with the highest acquisition score."""
-
-    return candidates[np.argmax(scores)]
-
-
 def nearest_observation_distance(
     candidates: np.ndarray,
     observed_inputs: np.ndarray,
 ) -> np.ndarray:
+    
     """Return each candidate's distance to its nearest observed point."""
 
     tree = cKDTree(observed_inputs)
@@ -164,3 +162,39 @@ def furthest_candidate(
     index = int(np.argmax(distances))
 
     return candidates[index].copy(), float(distances[index]), index
+
+
+def run_search_strategy(
+    inputs,
+    outputs,
+    candidates,
+    kernel,
+    acquisition_function,
+    gp_kwargs=None,
+    **acquisition_kwargs,
+):
+    
+    if gp_kwargs is None:
+        gp_kwargs = {}
+
+    gp = GaussianProcessRegressor(
+        kernel=kernel,
+        alpha=gp_kwargs.get("alpha", 1e-10),
+        normalize_y=gp_kwargs.get("normalize_y", True),
+        n_restarts_optimizer=gp_kwargs.get("n_restarts_optimizer", 0),
+        random_state=gp_kwargs.get("random_state", None))
+
+    gp.fit(inputs, outputs)
+
+    mu, sigma = gp.predict(candidates, return_std=True)
+    sigma = np.maximum(sigma, 1e-12)
+
+    scores = acquisition_function(
+        mu,
+        sigma,
+        **acquisition_kwargs
+    )
+
+    next_point = np.round(candidates[np.argmax(scores)], 6)
+
+    return next_point, scores

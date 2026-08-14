@@ -1,8 +1,9 @@
 """Data loading and observation management."""
 
+import ast
 import numpy as np
 import pandas as pd
-from .config import INITIAL_DATA_DIR
+from .config import INITIAL_DATA_DIR, QUERIES_FILE, RESULTS_FILE
 
 
 ### Initial Data
@@ -49,7 +50,7 @@ def update_data(
 
     if new_point.size != len(input_columns):
         raise ValueError(f"point has {new_point.size} dimensions; expected {len(input_columns)}")
-
+        
     if not np.all(np.isfinite(new_point)) or not np.isfinite(new_value):
         raise ValueError("point and value must be finite")
 
@@ -66,3 +67,33 @@ def update_data(
     print("Point added!")
 
     return data
+
+def historical_record(function_id, week):
+    
+    """Return the recorded historical query point and evaluated value for one function/week."""
+
+    queries = pd.read_csv(QUERIES_FILE)
+    results = pd.read_csv(RESULTS_FILE)
+
+    function = f"F_{function_id}"
+    week_col = f"Week_{week}"
+
+    query_value = queries.loc[
+        queries["Function"] == function,
+        week_col,
+    ].iloc[0]
+
+    observed_y = results.loc[
+        results["Function"] == function,
+        week_col,
+    ].iloc[0]
+
+    query_value = query_value.replace("\u00a0", " ")
+    
+    queried_point = np.asarray(
+        ast.literal_eval(query_value),
+        dtype=float,
+    )
+
+    return queried_point, float(observed_y)
+
