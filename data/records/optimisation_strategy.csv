@@ -9,7 +9,7 @@ F_1,7,10,Previous,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_in
 F_1,8,10,Previous,Cartesian Grid - Global,500²,"250,000",GP,RBF,EI,ξ=0,"RBF_initial_length_scale=0.2, RBF_length_scale_bounds=(0.05, 1.0)"
 F_1,9,10,Previous,Random Search - Local,-,"50,000",GP,Matérn 3/2,PI,ξ=0; radius=0.005,"Matern_initial_length_scale=[0.0025, 0.0025], Matern_length_scale_bounds=(1e-4, 0.05)"
 F_1,10,10,Previous,Random Search - Local,-,"50,000",GP,Matérn 3/2,PI,ξ=0; radius=0.01,"Matern_initial_length_scale=[0.0025, 0.0025], Matern_length_scale_bounds=(1e-4, 0.05)"
-F_1,11,10,Previous,Random Search - Local,-,"50,000",GP,Matérn 3/2,PI,ξ=0; radius=0.001,"Matern_initial_length_scale=[0.0025, 0.0025], Matern_length_scale_bounds=(1e-4, 0.05)"
+F_1,11,10,Previous,Random Search - Local,-,"50,000",GP,Matérn 3/2,PI,ξ=0; radius=0.002,"Matern_initial_length_scale=[0.0025, 0.0025], Matern_length_scale_bounds=(1e-4, 0.05)"
 F_1,12,10,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
 F_1,13,10,Previous,Targeted Diagnostics Search,-,-,-,-,-,-,-
 F_2,1,10,Initial,Cartesian Grid - Global,50²,"2,500",GP,RBF,UCB,κ=1.5,"RBF_length_scale=0.2, RBF_length_scale_bounds=""fixed"""
