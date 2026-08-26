@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import LeaveOneOut
 from collections.abc import Iterable, Mapping
 
-from .search import cartesian_grid, random_candidates
+from .search import cartesian_grid, random_candidates, _original_grid_blocks_4d
 from .acquisition import ( 
     expected_improvement, 
     probability_of_improvement, 
@@ -63,6 +63,8 @@ def sequential_performance(
     })
 
     return performance, summary
+
+
 
 # LOOCV and kernel-choice validation
 
@@ -324,3 +326,26 @@ def random_resolution_sensitivity(
 
     return pd.DataFrame(rows)
 
+
+def exhaustive_kappa_sensitivity_4d(
+    gp,
+    resolution,
+    kappas,
+    *,
+    slabs_per_batch=2,
+):
+    """Evaluate several UCB kappas on the same exhaustive original-order grid."""
+    best = {kappa: {"score": -np.inf,"candidate": None} for kappa in kappas}
+
+    for candidates in _original_grid_blocks_4d(resolution, slabs_per_batch=slabs_per_batch):
+        mean, std = gp.predict(candidates, return_std=True)
+
+        for kappa in kappas:
+            scores = mean + kappa * std
+            idx = int(np.argmax(scores))
+            score = float(scores[idx])
+
+            if score > best[kappa]["score"]:
+                best[kappa] = {"score": score, "candidate": candidates[idx].copy()}
+
+    return best

@@ -4,9 +4,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from itertools import combinations
 from matplotlib.axes import Axes
 from matplotlib.patches import Rectangle
-from scipy.interpolate import Rbf
+from scipy.interpolate import Rbf, griddata
 
 
 def plot_data_exploration(data: pd.DataFrame):
@@ -59,8 +60,7 @@ def plot_surrogate_landscapes(
     gp_values: np.ndarray,
     data: pd.DataFrame,
     elev: float = 30,
-    azim: float = -60,
-):
+    azim: float = -60):
     
     """Plot the GP posterior mean as a 2D contour
     and the thin-plate RBF interpolation as a 3D surface.
@@ -155,8 +155,7 @@ def plot_surrogate_landscapes(
         surface,
         ax=ax2,
         shrink=0.7,
-        pad=0.1,
-    )
+        pad=0.1)
 
     cbar2.set_label("Interpolated y", fontsize=7)
     cbar2.ax.tick_params(labelsize=6)
@@ -191,7 +190,7 @@ def plot_acquisition_2d(
 
     contour = ax.contourf(xx1, xx2, v, levels=20, cmap='viridis')
     cbar = plt.colorbar(contour, label="UCB")
-    cbar.ax.tick_params(labelsize=10)
+    cbar.ax.tick_params(labelsize=12)
     
     ax.scatter(data['x1'], data['x2'], c='red', s=90, label='Observed')
     ax.scatter(next_point[0], next_point[1], c='black', s=150, label='Next')
@@ -203,11 +202,62 @@ def plot_acquisition_2d(
     ax.set_xlabel("x1", fontsize=15)
     ax.set_ylabel("x2", fontsize=15)
     ax.tick_params(axis='both', labelsize=12)
-    ax.legend(fontsize=10, loc="upper left")
+    ax.legend(fontsize=14, loc="upper left")
     
     #fig.suptitle(f'Bayesian Optimization: GP + {acquisition_type}', fontsize=8)
     
     
+def plot_pairwise_observations_2d(
+    inputs,
+    outputs,
+    title="Initial observations",
+):
+    
+    """
+    Plot pairwise projections of the initial observations,
+    highlighting the best observed point.
+    """
+    dimension = inputs.shape[1]
+    pairs = list(combinations(range(dimension), 2))
+    best_idx = np.argmax(outputs)
+
+    fig, axes = plt.subplots(
+        1,
+        len(pairs),
+        figsize=(5.3 * len(pairs), 4.5),
+    )
+
+    axes = np.atleast_1d(axes)
+
+    for ax, (i, j) in zip(axes, pairs):
+        scatter = ax.scatter(
+            inputs[:, i],
+            inputs[:, j],
+            c=outputs,
+            s=70)
+
+        ax.scatter(
+            inputs[best_idx, i],
+            inputs[best_idx, j],
+            marker="*",
+            s=220,
+            label="Initial incumbent")
+
+        ax.set_xlabel(f"x{i + 1}")
+        ax.set_ylabel(f"x{j + 1}")
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        ax.legend()
+
+    fig.colorbar(
+        scatter,
+        ax=axes.tolist(),
+        label="Observed objective")
+
+    fig.suptitle(title)
+    plt.show()
+
+
 
 
 def plot_rbf_surface_3d(data: pd.DataFrame, elev: int = 22, azim: int =255):
@@ -418,17 +468,21 @@ def plot_local_refinement_2d(
     title,
     candidate_label="Proposed manual refinement",
     xlim=(0.60, 0.86),
-    ylim=(0.00, 0.32)
-):
+    ylim=(0.00, 0.32),
+    ax: Axes | None = None):
     
-    """Visualise a manual local refinement from the current incumbent using observed objective values."""
+    """Visualise a manual local refinement from the current incumbent."""
 
-    
-    local_data = data[ data["x1"].between(*xlim) & data["x2"].between(*ylim)]
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(8, 5))
+    else:
+        fig = ax.figure
 
-    plt.figure(figsize=(8, 5))
+    local_data = data[
+        data["x1"].between(*xlim)
+        & data["x2"].between(*ylim)]
 
-    scatter = plt.scatter(
+    scatter = ax.scatter(
         local_data["x1"],
         local_data["x2"],
         c=local_data["y"],
@@ -438,15 +492,14 @@ def plot_local_refinement_2d(
         edgecolor="black")
 
     for _, row in local_data.iterrows():
-        plt.annotate(
+        ax.annotate(
             f'{row["y"]:.3f}',
             (row["x1"], row["x2"]),
             xytext=(5, 5),
             textcoords="offset points",
-            fontsize=8
-        )
+            fontsize=8)
 
-    plt.scatter(
+    ax.scatter(
         incumbent[0],
         incumbent[1],
         marker="*",
@@ -454,10 +507,9 @@ def plot_local_refinement_2d(
         facecolor="white",
         edgecolor="black",
         linewidth=1.5,
-        label="Current incumbent"
-    )
+        label="Current incumbent")
 
-    plt.scatter(
+    ax.scatter(
         candidate[0],
         candidate[1],
         marker="X",
@@ -465,29 +517,31 @@ def plot_local_refinement_2d(
         facecolor="none",
         edgecolor="red",
         linewidth=2,
-        label=candidate_label
-    )
+        label=candidate_label)
 
-    plt.annotate(
+    ax.annotate(
         "",
         xy=candidate,
         xytext=incumbent,
         arrowprops=dict(
             arrowstyle="->",
             linewidth=1.8,
-            color="red"
-        )
-    )
+            color="red"))
 
-    plt.colorbar(scatter, label="Observed objective value")
-    plt.xlim(*xlim)
-    plt.ylim(*ylim)
-    plt.xlabel("$x_1$")
-    plt.ylabel("$x_2$")
-    plt.title(title)
-    plt.legend()
-    plt.grid(alpha=0.25)
-    plt.show()
+    fig.colorbar(
+        scatter,
+        ax=ax,
+        label="Observed objective value")
+
+    ax.set_xlim(*xlim)
+    ax.set_ylim(*ylim)
+    ax.set_xlabel("$x_1$")
+    ax.set_ylabel("$x_2$")
+    ax.set_title(title)
+    ax.legend()
+    ax.grid(alpha=0.25)
+    ax.legend(fontsize=6, loc="upper right")
+
 
 
 def plot_best_observed_progression_2d(
@@ -512,46 +566,310 @@ def plot_best_observed_progression_2d(
         title=title,
     )
     ax.grid(alpha=0.25)
-    return ax
+    
 
 
+def plot_initial_landscape_3d(
+    data,
+    x3_fixed=None,
+    grid_resolution=50,
+    scatter_title="3D Scatter of Initial Observations",
+    surface_title=None,
+    suptitle="Function 3: Initial exploratory visualisation",
+):
+    """
+    Plot:
+    1. A 3D scatter of the observed initial points coloured by y
+    2. A 3D interpolated surface over (x1, x2) with x3 fixed
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        Must contain columns: 'x1', 'x2', 'x3', 'y'.
+    x3_fixed : float or None, default=None
+        Value of x3 used for the surface slice.
+        If None, the median observed x3 is used.
+    grid_resolution : int, default=50
+        Number of grid points per axis for the interpolated surface.
+    scatter_title : str
+        Title of the 3D scatter plot.
+    surface_title : str or None
+        Title of the interpolated surface plot.
+        If None, a default title is created.
+    suptitle : str
+        Overall figure title.
+    """
+    if x3_fixed is None:
+        x3_fixed = np.median(data["x3"])
+
+    x1_lin = np.linspace(0, 1, grid_resolution)
+    x2_lin = np.linspace(0, 1, grid_resolution)
+    X1_grid, X2_grid = np.meshgrid(x1_lin, x2_lin)
+
+    points = data[["x1", "x2", "x3"]].values
+    values = data["y"].values
+
+    grid_z = griddata(
+        points,
+        values,
+        (X1_grid, X2_grid, x3_fixed * np.ones_like(X1_grid)),
+        method="linear",
+    )
+
+    fig = plt.figure(figsize=(12, 5))
+
+    # Left panel: 3D scatter of actual observations
+    ax1 = fig.add_subplot(1, 2, 1, projection="3d")
+    sc1 = ax1.scatter(
+        data["x1"],
+        data["x2"],
+        data["x3"],
+        c=data["y"],
+        cmap="viridis",
+        s=100,
+    )
+    ax1.set_xlabel("x1")
+    ax1.set_ylabel("x2")
+    ax1.set_zlabel("x3")
+    ax1.set_title(scatter_title)
+    fig.colorbar(sc1, ax=ax1, shrink=0.7, label="Observed objective")
+
+    # Right panel: interpolated surface coloured by interpolated y
+    ax2 = fig.add_subplot(1, 2, 2, projection="3d")
+    surf = ax2.plot_surface(
+        X1_grid,
+        X2_grid,
+        grid_z,
+        cmap="viridis",
+        edgecolor="k",
+        alpha=0.85,
+    )
+    ax2.set_xlabel("x1")
+    ax2.set_ylabel("x2")
+    ax2.set_zlabel("y")
+
+    if surface_title is None:
+        surface_title = f"Interpolated surface at x3 = {x3_fixed:.2f}"
+
+    ax2.set_title(surface_title)
+    fig.colorbar(surf, ax=ax2, shrink=0.7, label="Interpolated objective")
+
+    fig.suptitle(suptitle)
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_search_path_3d(
+    inputs,
+    outputs,
+    query_inputs,
+    n_initial=15,
+    function_id=3):
+    """Plot and save the 3D sequential search path."""
+
+    fig = plt.figure(figsize=(9, 7))
+    ax = fig.add_subplot(111, projection="3d")
+
+    # Initial observations
+    ax.scatter(
+        inputs[:n_initial, 0],
+        inputs[:n_initial, 1],
+        inputs[:n_initial, 2],
+        s=45,
+        color="red",
+        alpha=0.6,
+        label="Initial observations")
+
+    # Sequential queries
+    ax.plot(
+        query_inputs[:, 0],
+        query_inputs[:, 1],
+        query_inputs[:, 2],
+        marker="o",
+        linewidth=1.2,
+        label="Sequential queries")
+
+    # Week labels
+    for week, point in enumerate(query_inputs, start=1):
+        ax.text(
+            point[0],
+            point[1],
+            point[2],
+            f"W{week}",
+            fontsize=8)
+
+    # Final incumbent
+    best_idx = np.argmax(outputs)
+
+    ax.scatter(
+        inputs[best_idx, 0],
+        inputs[best_idx, 1],
+        inputs[best_idx, 2],
+        marker="*",
+        s=260,
+        label="Final incumbent")
+
+    ax.set_xlabel("x1")
+    ax.set_ylabel("x2")
+    ax.set_zlabel("x3")
+    ax.set_title(f"Function {function_id}: global exploration to local refinement")
+    ax.legend()
+
+    plt.tight_layout()
+
+    # Save automatically
+    plt.savefig(
+        f"function_{function_id}.png",
+        dpi=300,
+        bbox_inches="tight")
+
+    plt.show()
+
+    
 def plot_sequential_query_performance(
     performance: pd.DataFrame,
-    title: str = "Sequential Query Performance vs Previous Incumbent",
-):
+    function_id: int, 
+    yscale: str = "symlog",
+    plot_type: str = "line"):
     
-    """Plot queried outputs against the previous incumbent."""
+    """Plot weekly query outputs and the evolution of the incumbent."""
 
-    fig, ax = plt.subplots(figsize=(9, 4))
+    fig, ax = plt.subplots(figsize=(12, 5.5))
 
     weeks = performance["query"]
-
-    ax.plot(
-        weeks,
-        performance["query_output"],
-        marker="o",
-        label="Queried output",
-    )
+    query_output = performance["query_output"]
+    best_so_far = performance["best_so_far"]
 
     previous_incumbent = (
         performance["best_so_far"] - performance["improvement"]
     )
 
-    ax.plot(
+    # ------------------------------------------------------------
+    # Weekly query outputs
+    #
+    # Step-wise representation:
+    # W1 value is held from W1 -> W2,
+    # W2 value from W2 -> W3, etc.
+    # ------------------------------------------------------------
+    ax.step(
         weeks,
-        previous_incumbent,
+        query_output,
+        where="post",
+        linewidth=1,
         linestyle="--",
-        label="Previous incumbent",
+        alpha=0.85,
+        label="Weekly query",
+        zorder=3,
     )
 
-    ax.set_yscale("symlog", linthresh=1e-18)
+    ax.scatter(
+        weeks,
+        query_output,
+        s=45,
+        zorder=4,
+    )
+
+    # ------------------------------------------------------------
+    # Best-so-far trajectory
+    #
+    # Starts at W1 with the incumbent that existed before
+    # the first sequential query.
+    # ------------------------------------------------------------
+    initial_week = weeks.iloc[0]
+    initial_incumbent = previous_incumbent.iloc[0]
+
+    incumbent_weeks = np.r_[
+        initial_week,
+        weeks.to_numpy(),
+    ]
+
+    incumbent_values = np.r_[
+        initial_incumbent,
+        best_so_far.to_numpy(),
+    ]
+
+    ax.step(
+        incumbent_weeks,
+        incumbent_values,
+        where="post",
+        linewidth=1,
+        color="green",
+        #linestyle="--",
+        label="Best so far",
+        zorder=2,
+    )
+
+    # Mark initial incumbent, changes, and final incumbent
+    incumbent_points = np.r_[
+        True,
+        np.diff(incumbent_values) != 0,
+    ]
+
+    incumbent_points[-1] = True
+
+    ax.scatter(
+        incumbent_weeks[incumbent_points],
+        incumbent_values[incumbent_points],
+        s=38,
+        color="green",
+        zorder=5,
+    )
+
+    # ------------------------------------------------------------
+    # Highlight overall best observed query
+    # ------------------------------------------------------------
+    best_idx = query_output.idxmax()
+    best_week = performance.loc[best_idx, "query"]
+    best_value = performance.loc[best_idx, "query_output"]
+
+    ax.scatter(
+        best_week,
+        best_value,
+        s=100,
+        color="firebrick",
+        edgecolor="white",
+        linewidth=1.2,
+        zorder=6,
+        label="Best observed query",
+    )
+
+    ax.annotate(
+        f"best={best_value:.4g} @ W{int(best_week)}",
+        xy=(best_week, best_value),
+        xytext=(8, 10),
+        textcoords="offset points",
+        fontsize=10,
+        color="firebrick",
+    )
+
+    # ------------------------------------------------------------
+    # Formatting
+    # ------------------------------------------------------------
+    ax.set_yscale(yscale)
+
+    ax.set_xticks(weeks)
+    ax.set_xticklabels(
+        [f"W{int(w)}" for w in weeks]
+    )
+
     ax.set_xlabel("Week")
     ax.set_ylabel("Objective value")
-    ax.set_title(title)
-    ax.set_xticks(weeks)
-    ax.grid(alpha=0.25)
-    ax.legend()
+    ax.set_title(
+        "Sequential Query Performance and Best-So-Far Evolution"
+    )
+
+    ax.grid(True, alpha=0.20)
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    ax.legend(
+        frameon=False,
+        ncol=3,
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.14),
+    )
 
     plt.tight_layout()
+    fig.savefig(f"summary_f{function_id}.png", dpi=300,bbox_inches="tight")
     plt.show()
-

@@ -59,12 +59,11 @@ def update_data(
 
     if exists:
         print("Point already exists, skipping addition.")
-        return data
+    else:
+        new_row = pd.DataFrame([[*new_point, float(new_value)]],columns=[*input_columns, "y"])
+        data = pd.concat([data, new_row], ignore_index=True)
 
-    new_row = pd.DataFrame([[*new_point, float(new_value)]],columns=[*input_columns, "y"])
-    data = pd.concat([data, new_row], ignore_index=True)
-
-    print("Point added!")
+        print("Point added!")
 
     return data
 
